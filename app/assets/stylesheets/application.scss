@@ -85,7 +85,7 @@ nav.logged_in_nav {
   border-top: solid thin #bfb;
   padding: 0.354em 0;
   margin-top: 0.354em;
-  input[type="submit"] {
+  button[type="submit"] {
     // Make the logout button look like a
     // link, so it matches the nav style
     background: none;
@@ -97,7 +97,7 @@ nav.logged_in_nav {
     padding: 0;
     text-transform: uppercase;
   }
-  input[type="submit"]:hover {
+  button[type="submit"]:hover {
     color: white;
   }
 }
@@ -206,5 +206,10 @@ nav.logged_in_nav {
       background: pink;
     }
   }
+  .locale {
+    float: right;
+    margin: 1em;
+  }
+    
 }
 //
