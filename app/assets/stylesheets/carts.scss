@@ -31,15 +31,19 @@
       border-top: solid thin;
     }
   }
-  input[type="submit"], button {
+  .button_to {
+    display: inline;
+  }
+  button[type="submit"] {
+   
     background-color: #881;
     border-radius: 0.354em;
     border: solid thin #441;
     color: white;
-    font-size: 1em;
+    font-size: 0.9em;
     padding: 0.354em 1em;
   }
-  input[type="submit"]:hover {
+  button[type="submit"]:hover {
     background-color: #992;
   }
 }
