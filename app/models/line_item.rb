@@ -5,7 +5,7 @@ class LineItem < ApplicationRecord
 
   # validation extentions
   validates :product_id, uniqueness: {scope: :cart_id, message: 'one product added only once in cart'}
-
+  
   def total_price
     product.price * quantity
   end
