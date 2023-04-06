@@ -5,6 +5,14 @@ class Product < ApplicationRecord
   has_many :orders, through: :line_items
   before_destroy :ensure_not_referenced_by_any_line_item 
 
+  # callbacks extentions
+  after_initialize do 
+    self.title = 'abc' if title.blank?
+    self.discount_price = price if price && discount_price.blank?
+  end
+
+
+
   validates :title, :description, :image_url, presence: true
   validates :title, uniqueness: true
   
