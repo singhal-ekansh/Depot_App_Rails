@@ -1,5 +1,6 @@
 class Product < ApplicationRecord
-  
+  MIN_THREE_WORDS_REGXP = /(\w+)-(\w+)-(\w+)/
+  SPECIAL_CHAR_REGXP =/[^A-Za-z0-9\-]/
   has_many :line_items
   has_many :orders, through: :line_items
   before_destroy :ensure_not_referenced_by_any_line_item 
@@ -15,18 +16,18 @@ class Product < ApplicationRecord
   # validation extentions 
   validates :permalink, uniqueness: true
   validates :permalink, format: {
-    without: /[^A-Za-z0-9\-]/,
+    without: SPECIAL_CHAR_REGXP,
     message: 'spacial character and space not allowed'
   }
   validates :permalink, format: {
-    with: /(\w+)-(\w+)-(\w+)/,
+    with: MIN_THREE_WORDS_REGXP,
     message: 'minimum 3 words, separated by hyphen'
   }
   validates :price, numericality: { greater_than_or_equal_to: 0.01 }, allow_blank: true
   validate :validate_description_length
   validates :image_url, url:true
   validates_with PriceValidator
-  validates :price, comparison: {greater_than: :discount_price, message: 'must be greater than discount price' }
+  validates :price, comparison: { greater_than: :discount_price, message: 'must be greater than discount price' }
   
 
 
