@@ -1,21 +1,5 @@
-class UrlValidator < ActiveModel::EachValidator
-  def validate_each(record, attribute, value)
-    record.errors.add(attribute,'must be a URL for GIF, JPG or PNG image') unless value =~ %r{\.(gif|jpg|png)\z}i
-  end 
-end
-
-class PriceValidator < ActiveModel::Validator
-  def validate(record)
-    price_value = record.send(:price)
-    discount_value = record.send(:discount_price)
-    if price_value && discount_value 
-      record.errors.add :price, 'must be greater than discount price' if price_value < discount_value
-    end
-  end
-end
-
 class Product < ApplicationRecord
-
+  
   has_many :line_items
   has_many :orders, through: :line_items
   before_destroy :ensure_not_referenced_by_any_line_item 
