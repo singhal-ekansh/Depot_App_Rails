@@ -10,3 +10,8 @@
   <%= item.order_id %>
   <br><br>
 <% end %>  
+
+<%unless @page_number == 1 %>
+  <%= link_to "prev page", "/users/line_items?page=#{@page_number - 1}" %>
+<% end %>
+<%= link_to "next page", "/users/line_items?page=#{@page_number + 1}" %>

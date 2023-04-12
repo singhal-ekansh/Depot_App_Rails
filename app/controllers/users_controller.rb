@@ -66,8 +66,9 @@ class UsersController < ApplicationController
   end
 
   def show_line_items
+    @page_number = params[:page] ? params[:page].to_i : 1 
     @user = User.find_by(id: session[:user_id])   
-    @line_items = @user.line_items
+    @line_items = @user.line_items.limit(5).offset(5 * (@page_number-1))
   end
 
   private
