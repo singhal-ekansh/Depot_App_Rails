@@ -1,0 +1,15 @@
+<h1> ORDERS </h1>
+
+<% @user.orders.each do |order| %>
+  <%= "Order id #{order.id}" %>
+  <br><br>
+  <% order.line_items.each do |item|%>
+    <%= item.product.title%>
+    <%= item.quantity %>
+    <br>
+  <% end %>
+  <%= "Total Price $ #{order.line_items.to_a.sum { |item| item.total_price }}"%>  
+  <br><br>
+<% end%>  
+
+<link>

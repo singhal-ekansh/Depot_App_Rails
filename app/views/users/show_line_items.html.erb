@@ -1,0 +1,12 @@
+<h1> LINE ITEMS </h1>
+
+<% @line_items.each do |item|%>
+  <%= item.product.title %>
+  <br>
+  quantity
+  <%= item.quantity %>
+  <br>
+  order id
+  <%= item.order_id %>
+  <br><br>
+<% end %>  
