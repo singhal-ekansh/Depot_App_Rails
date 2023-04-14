@@ -19,6 +19,19 @@ class Order < ApplicationRecord
   # ...
   validates :name, :address, :email, presence: true
   validates :pay_type, inclusion: pay_types.keys
+
+  # query extensions
+
+  scope :by_date, ( Proc.new do |from, to|
+    if from && to
+      where(created_at: from..to) 
+    elsif !from && !to
+      where(created_at: (Time.now.midnight..))
+    else
+      raise 'Argument error'
+    end
+  end )
+  
   def add_line_items_from_cart(cart)
     cart.line_items.each do |item|
       item.cart_id = nil
