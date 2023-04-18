@@ -6,22 +6,10 @@ class Product < ApplicationRecord
   before_destroy :ensure_not_referenced_by_any_line_item 
 
   # callbacks extentions
-  after_initialize do 
+  before_validation do 
     self.title = 'abc' if title.blank?
-    self.discount_price = price if price && discount_price.blank?
+    self.discount_price = price if discount_price.blank?
   end
-
-
-
-  validates :title, :description, :image_url, presence: true
-  # validates :price, numericality: { greater_than_or_equal_to: 0.01 }
-  validates :title, uniqueness: true
-  # validates :image_url, allow_blank: true, format: {
-  #   with: %r{\.(gif|jpg|png)\z}i,
-  #   message: 'must be a URL for GIF, JPG or PNG image.'
-  #   }
-
-
 
   validates :title, :description, :image_url, presence: true
   validates :title, uniqueness: true
@@ -39,10 +27,9 @@ class Product < ApplicationRecord
   validates :price, numericality: { greater_than_or_equal_to: 0.01 }, allow_blank: true
   validate :validate_description_length
   validates :image_url, url:true
-  validates_with PriceValidator 
-  validates :price, comparison: { greater_than: :discount_price, message: 'must be greater than discount price' } unless -> { discount_price.blank? }
+  validates_with PriceValidator, unless: -> { price.blank? || discount_price.blank? }
+  validates :price, comparison: { greater_than: :discount_price, message: 'must be greater than discount price' }, unless: -> { discount_price.blank? }
   
-
 
   private 
     def ensure_not_referenced_by_any_line_item
