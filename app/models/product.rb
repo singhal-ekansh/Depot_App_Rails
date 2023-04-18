@@ -31,6 +31,11 @@ class Product < ApplicationRecord
   validates_with PriceValidator, unless: -> { price.blank? || discount_price.blank? }
   validates :price, comparison: { greater_than: :discount_price, message: 'must be greater than discount price' }, unless: -> { discount_price.blank? }
   
+  # query extentions
+  
+  scope :enabled_products, -> { where(enabled: true) }
+  scope :products_with_atleast_one_line_item, -> { joins(:line_items).distinct }
+  scope :product_titles_with_atleast_one_line_item, -> { joins(:line_items).distinct.pluck(:title) }
 
   private 
     def ensure_not_referenced_by_any_line_item
