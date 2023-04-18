@@ -5,11 +5,9 @@ class User < ApplicationRecord
   has_secure_password
 
   # callbacks extentions
-  before_destroy :ensure_admin_email
-  before_update :ensure_admin_email
-  after_create_commit do
-    UserMailer.welcome_mail(self).deliver_later
-  end
+  before_destroy :ensure_not_delete_if_admin_email
+  before_update :ensure_not_update_if_admin_email
+  after_create_commit :send_email_to_user
   
   # validation extentions
   validates :email, presence: true, uniqueness: { case_sensitive: false }
@@ -28,7 +26,15 @@ class User < ApplicationRecord
       end
     end
 
-    def ensure_admin_email 
-      throw :abort if User.find(id).email == 'admin@depot.com'
+    def ensure_not_delete_if_admin_email 
+      throw :abort if self.email_was == 'admin@depot.com'
+    end
+
+    def ensure_not_update_if_admin_email 
+      throw :abort if self.email_was == 'admin@depot.com'
+    end
+
+    def send_email_to_user
+      UserMailer.welcome_mail(self).deliver_later
     end
 end
