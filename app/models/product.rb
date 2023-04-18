@@ -4,6 +4,7 @@ class Product < ApplicationRecord
   has_many :line_items, dependent: :restrict_with_exception
   has_many :orders, through: :line_items
   has_many :carts, through: :line_items
+  belongs_to :category, counter_cache: true
   # before_destroy :ensure_not_referenced_by_any_line_item 
 
   # callbacks extentions
@@ -11,6 +12,26 @@ class Product < ApplicationRecord
     self.title = 'abc' if title.blank?
     self.discount_price = price if discount_price.blank?
   end
+
+  after_create_commit do
+    root_category = Category.find(category_id).parent
+    root_category.increment!(:products_count) if root_category
+  end
+
+  after_destroy_commit do
+    root_category = Category.find(category_id).parent
+    root_category.decrement!(:products_count) if root_category
+  end
+
+  validates :title, :description, :image_url, presence: true
+  # validates :price, numericality: { greater_than_or_equal_to: 0.01 }
+  validates :title, uniqueness: true
+  # validates :image_url, allow_blank: true, format: {
+  #   with: %r{\.(gif|jpg|png)\z}i,
+  #   message: 'must be a URL for GIF, JPG or PNG image.'
+  #   }
+
+
 
   validates :title, :description, :image_url, presence: true
   validates :title, uniqueness: true

@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get 'sessions/create'
   get 'sessions/destroy'
 
+  get 'store/categories', to: 'store#categories'
   get 'users/orders', to: 'users#show_orders'
   get 'users/line_items', to: 'users#show_line_items'
   resources :users
