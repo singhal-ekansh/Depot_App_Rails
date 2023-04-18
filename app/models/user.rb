@@ -4,7 +4,7 @@ class User < ApplicationRecord
   validates :name, presence: true, uniqueness: true
   has_secure_password
 
-  has_many :orders
+  has_many :orders, dependent: :destroy
   has_many :line_items, through: :orders 
   # callbacks extentions
   before_destroy :ensure_not_delete_if_admin_email
