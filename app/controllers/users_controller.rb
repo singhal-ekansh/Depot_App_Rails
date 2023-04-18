@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[ show edit update destroy ]
+  # before_action :set_user, only: %i[ show edit update destroy ]
 
   # GET /users or /users.json
   def index
@@ -59,6 +59,16 @@ class UsersController < ApplicationController
 
   rescue_from 'User::Error' do |exception|
     redirect_to users_url, notice: exception.message
+  end
+
+  def show_orders
+    @user = User.find_by(id: session[:user_id])    
+  end
+
+  def show_line_items
+    @page_number = params[:page] ? params[:page].to_i : 1 
+    @user = User.find_by(id: session[:user_id])   
+    @line_items = @user.line_items.limit(5).offset(5 * (@page_number-1))
   end
 
   private
