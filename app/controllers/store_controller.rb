@@ -10,5 +10,9 @@ class StoreController < ApplicationController
       @products = Product.order(:title)
     end
   end
+
+  def categories
+    @categories = Category.includes(:sub_categories).where(parent_id: nil).all
+  end
     
 end

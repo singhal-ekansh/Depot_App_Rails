@@ -12,6 +12,8 @@ Rails.application.routes.draw do
 
   get 'users/orders', to: 'users#orders'
   get 'users/line_items', to: 'users#line_items'
+  get 'store/categories', to: 'store#categories'
+
   resources :users
   resources :products do
     get :who_bought, on: :member

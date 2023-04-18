@@ -1,0 +1,11 @@
+<h1> CATEGORIES </h1>
+
+<% @categories.each do |category| %>
+  <%='*'%>
+  <%=category.name %>
+  <br>
+  <%category.sub_categories.each do |sub_category| %>
+  <%="   #{sub_category.name}" %>
+  <br>
+  <%end %>
+<% end %>
