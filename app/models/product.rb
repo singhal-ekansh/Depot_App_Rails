@@ -21,10 +21,9 @@ class Product < ApplicationRecord
   validates :price, numericality: { greater_than_or_equal_to: 0.01 }, allow_blank: true
   validate :validate_description_length
   validates :image_url, url:true
-  validates_with PriceValidator 
-  validates :price, comparison: { greater_than: :discount_price, message: 'must be greater than discount price' } unless -> { discount_price.blank? }
+  validates_with PriceValidator, unless: -> { price.blank? || discount_price.blank? }
+  validates :price, comparison: { greater_than: :discount_price, message: 'must be greater than discount price' }, unless: -> { discount_price.blank? }
   
-
 
   private 
     def ensure_not_referenced_by_any_line_item
