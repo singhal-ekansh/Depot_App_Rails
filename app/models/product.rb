@@ -8,6 +8,12 @@ class Product < ApplicationRecord
   validates :title, :description, :image_url, presence: true
   validates :title, uniqueness: true
   
+   # callbacks extentions
+   before_validation do
+    self.title = 'abc' if title.blank?
+    self.discount_price = price if discount_price.blank?
+   end
+
   # validation extentions 
   validates :permalink, uniqueness: { case_sensitive: false }
   validates :permalink, format: {
