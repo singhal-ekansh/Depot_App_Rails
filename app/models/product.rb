@@ -33,7 +33,7 @@ class Product < ApplicationRecord
   
   # query extentions
   
-  scope :enabled_products, -> { where(enabled: true) }
+  scope :enabled, -> { where(enabled: true) }
   scope :products_with_atleast_one_line_item, -> { joins(:line_items).distinct }
   scope :product_titles_with_atleast_one_line_item, -> { joins(:line_items).distinct.pluck(:title) }
 

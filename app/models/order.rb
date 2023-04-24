@@ -22,14 +22,8 @@ class Order < ApplicationRecord
 
   # query extensions
 
-  scope :by_date, ( Proc.new do |from, to|
-    if from && to
-      where(created_at: from..to) 
-    elsif !from && !to
-      where(created_at: (Time.now.midnight..))
-    else
-      raise 'Argument error'
-    end
+  scope :by_date, ( Proc.new do |from = Time.now.midnight, to|
+    where(created_at: (from..to))
   end )
   
   def add_line_items_from_cart(cart)
