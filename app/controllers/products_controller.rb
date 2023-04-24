@@ -75,6 +75,14 @@ class ProductsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def product_params
-      params.require(:product).permit(:title, :description, :image_url, :price, :discount_price, :enabled, :permalink)
+      params.require(:product).permit(:title, :description, :price, :discount_price, :enabled, :permalink, :category_id, images: [])
     end
+
+    # def upload
+    #   uploaded_file = params[:product][:image]
+    #   params[:product][:image_url] = uploaded_file.original_filename
+    #   File.open(Rails.root.join('app', 'assets', 'images', uploaded_file.original_filename), 'wb') do |file|
+    #     file.write(uploaded_file.read)
+    #   end
+    # end
 end

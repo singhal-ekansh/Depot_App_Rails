@@ -11,6 +11,9 @@ class User < ApplicationRecord
   before_update :ensure_not_update_if_admin_email
   after_create_commit :send_email_to_user
   
+  has_one :address, dependent: :destroy
+  accepts_nested_attributes_for :address
+
   # validation extentions
   validates :email, presence: true, uniqueness: { case_sensitive: false }
   validates :email, format: {

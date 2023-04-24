@@ -22,8 +22,9 @@
   </div>
 
   <div>
-    <%= form.label :image_url, style: "display: block" %>
-    <%= form.text_field :image_url %>
+    <%# <%= form.label :image_url, style: "display: block" %>
+    <%# <%= form.text_field :image_url %> 
+    <%= form.file_field :images, multiple: true %>
   </div>
 
   <div>
@@ -39,6 +40,11 @@
   <div>
     <%= form.label :permalink, style: "display: block" %>
     <%= form.text_field :permalink %>
+  </div>
+
+  <div>
+    <%= form.label :category, style: "display: block" %>
+    <%= form.select :category_id, Category.all.pluck(:name, :id), prompt: "Select One" %>
   </div>
 
   <div>
