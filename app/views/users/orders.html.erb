@@ -1,6 +1,6 @@
 <h1> ORDERS </h1>
 
-<% @user.orders.each do |order| %>
+<% @orders.each do |order| %>
   <%= "Order id #{order.id}" %>
   <br><br>
   <% order.line_items.each do |item|%>

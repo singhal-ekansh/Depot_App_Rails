@@ -10,8 +10,8 @@ Rails.application.routes.draw do
   get 'sessions/create'
   get 'sessions/destroy'
 
-  get 'users/orders', to: 'users#show_orders'
-  get 'users/line_items', to: 'users#show_line_items'
+  get 'users/orders', to: 'users#orders'
+  get 'users/line_items', to: 'users#line_items'
   resources :users
   resources :products do
     get :who_bought, on: :member
