@@ -27,18 +27,22 @@ class User < ApplicationRecord
     end
 
     def ensure_not_delete_if_admin_email 
-      if self.email_was == 'admin@depot.com'
+      if was_admin?
         errors.add(:base, 'can not delete admin')
         throw:abort
       end
     end
 
     def ensure_not_update_if_admin_email 
-      if self.email_was == 'admin@depot.com'
+      if was_admin?
         errors.add(:base, 'can not update admin')
         throw:abort
       end
     end
+
+    def was_admin?
+      self.email_was == 'admin@depot.com'
+    end 
 
     def send_email_to_user
       UserMailer.welcome_mail(self).deliver_later
