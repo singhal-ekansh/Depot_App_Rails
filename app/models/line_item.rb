@@ -3,6 +3,9 @@ class LineItem < ApplicationRecord
   belongs_to :product
   belongs_to :cart, optional: true 
 
+  # validation extentions
+  validates :product_id, uniqueness: { scope: :cart_id, message: 'one product added only once in cart' }
+
   def total_price
     product.price * quantity
   end
