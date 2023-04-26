@@ -1,9 +1,14 @@
 class User < ApplicationRecord
-  EMAIL_REGEX = %r{/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$}
+  EMAIL_REGEX = %r{\A[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*\z}
   after_destroy :ensure_an_admin_remains
   validates :name, presence: true, uniqueness: true
   has_secure_password
 
+<<<<<<< HEAD
+=======
+  has_many :orders, dependent: :destroy
+  has_many :line_items, through: :orders 
+>>>>>>> associations
   # callbacks extentions
   before_destroy :ensure_not_delete_if_admin_email
   before_update :ensure_not_update_if_admin_email

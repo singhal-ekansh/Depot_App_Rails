@@ -1,0 +1,17 @@
+<h1> LINE ITEMS </h1>
+
+<% @line_items.each do |item|%>
+  <%= item.product.title %>
+  <br>
+  quantity
+  <%= item.quantity %>
+  <br>
+  order id
+  <%= item.order_id %>
+  <br><br>
+<% end %>  
+
+<%unless @page_number == 1 %>
+  <%= link_to "prev page", "/users/line_items?page=#{@page_number - 1}" %>
+<% end %>
+<%= link_to "next page", "/users/line_items?page=#{@page_number + 1}" %>

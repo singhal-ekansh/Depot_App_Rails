@@ -1,9 +1,26 @@
 class Product < ApplicationRecord
   MIN_THREE_WORDS_REGXP = /(\w+)-(\w+)-(\w+)/
   SPECIAL_CHAR_REGXP = /\A[\w-]+\z/
-  has_many :line_items
+  has_many :line_items, dependent: :restrict_with_error
   has_many :orders, through: :line_items
-  before_destroy :ensure_not_referenced_by_any_line_item 
+  has_many :carts, through: :line_items
+  # before_destroy :ensure_not_referenced_by_any_line_item 
+
+  # callbacks extentions
+  before_validation do 
+    self.title = 'abc' if title.blank?
+    self.discount_price = price if discount_price.blank?
+  end
+
+  after_create_commit do
+    root_category = Category.find(category_id).parent
+    root_category.increment!(:products_count) if root_category
+  end
+
+  after_destroy_commit do
+    root_category = Category.find(category_id).parent
+    root_category.decrement!(:products_count) if root_category
+  end
 
   # callbacks extentions
   before_validation do 
