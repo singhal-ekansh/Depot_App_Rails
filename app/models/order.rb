@@ -22,9 +22,7 @@ class Order < ApplicationRecord
 
   # query extensions
 
-  scope :by_date, ( Proc.new do |from = Time.now.midnight, to|
-    where(created_at: (from..to))
-  end )
+  scope :by_date, -> ( from = Time.now.midnight, to = nil ) { where(created_at: (from..to)) }
   
   def add_line_items_from_cart(cart)
     cart.line_items.each do |item|
