@@ -61,5 +61,12 @@
         <%= yield %>
       </main>
     </section>
+    <% session[params[:controller]] = Hash.new unless session[params[:controller]] %>
+    <% session[params[:controller]][params[:action]] = 0 unless session[params[:controller]][params[:action]] %>
+    <%= "hit count = #{session[params[:controller]][params[:action]] += 1}"%>
+    <br>
+    <%= "x-responded-in #{(Time.now - @elapsed_time) * 1000 } ms" %>
+    <br>
+    <%= "ip-address #{request.remote_ip}" %>
   </body>
 </html>

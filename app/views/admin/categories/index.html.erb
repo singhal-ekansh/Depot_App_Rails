@@ -1,0 +1,10 @@
+<h1> CATEGORIES </h1>
+  <% @categories.each do |category| %>
+    <%= link_to "name = #{category.name}", products_admin_category_path(category) %>
+    <br>
+    <%= "parent= #{category.parent ? category.parent.name : nil}" %>
+    <br>
+    <%= "product_count = #{category.products_count}" %>
+    <br>
+    <br>
+  <% end%>

@@ -1,0 +1,21 @@
+<h1>Orders</h1>
+
+<%= form_with url: admin_reports_path, method: :get do |form| %>
+   <%= form.date_field :start_date %>
+   <br>
+   <%= form.date_field :end_date %>
+   <br>
+   <%= submit_tag 'Submit' %>
+   <br>
+   <br>
+<% end %>
+
+<% @orders.each_with_index do |order, index| %>
+  <strong>
+  <%= "order #{index + 1}" %>
+  </strong>
+  <br>
+  <%= render partial: "orders/order" , object: order %>
+  <br>
+  <br>
+<% end %> 
