@@ -1,11 +1,11 @@
+<h1> <%= "All Orders Details" %></h1>
 
-<h1> <%= I18n.t('.Order_Placed') %></h1>
-<%= I18n.t(".Thanks_for_placing_order")%>
-
-<%= I18n.t(".here_are_your_list_items")%> 
-
-<% @order.line_items.each do |item| %>
- <tr>
+<% @orders.each_with_index do |order, index| %>
+  <%= "Order #{index+1}" %>
+  <br>
+  <% order.line_items.each do |item| %>
+   
+  <tr>
   <td class="quantity"><%= item.quantity %></td>
   <td><%= item.product.title %></td>
   <td class="price"><%= item.total_price %></td>
@@ -15,4 +15,6 @@
    <% end %>
   </td>
  </tr>
- <% end%>
+
+  <% end%>
+<% end%>

@@ -1,54 +1,53 @@
 en:
-
   number:
     currency:
       format:
-        unit:      "$"
+        unit: "$"
         precision: 2
         separator: "."
         delimiter: ","
-        format:    "%u%n"
+        format: "%u%n"
 
   errors:
     template:
-      body:        "There were problems with the following fields:"
-      header:       
-        one:       "1 error prohibited this %{model} from being saved"
-        other:     "%{count} errors prohibited this %{model} from being saved"
+      body: "There were problems with the following fields:"
+      header:
+        one: "1 error prohibited this %{model} from being saved"
+        other: "%{count} errors prohibited this %{model} from being saved"
 
   layouts:
     application:
-      title:       "The Pragmatic Bookshelf"
-      home:        "Home"
-      questions:   "Questions"
-      news:        "News"
-      contact:     "Contact"
+      title: "The Pragmatic Bookshelf"
+      home: "Home"
+      questions: "Questions"
+      news: "News"
+      contact: "Contact"
 
   carts:
     cart:
-      title:       "Your Cart"
-      empty:       "Empty cart"
-      checkout:    "Checkout"
+      title: "Your Cart"
+      empty: "Empty cart"
+      checkout: "Checkout"
 
   store:
     index:
-      title_html:  "Your Pragmatic Catalog"
-      add_html:    "Add to Cart"
+      title_html: "Your Pragmatic Catalog"
+      add_html: "Add to Cart"
 
   orders:
     new:
-      legend:       "Please Enter Your Details"
+      legend: "Please Enter Your Details"
     form:
-      name:         "Name"
+      name: "Name"
       address_html: "Address"
-      email:        "E-mail"
-      pay_type:     "Pay with"
+      email: "E-mail"
+      pay_type: "Pay with"
       pay_prompt_html: "Select a payment method"
-      submit:       "Place Order"
+      submit: "Place Order"
       pay_types:
-        check:           "Check"
-        credit_card:     "Credit Card"
-        purchase_order:  "Purchase Order"
+        check: "Check"
+        credit_card: "Credit Card"
+        purchase_order: "Purchase Order"
       check_pay_type:
         routing_number: "Routing #"
         account_number: "Account #"
@@ -58,5 +57,9 @@ en:
       purchase_order_pay_type:
         po_number: "PO #"
 
+  order_mailer:
+    received:
+      Order_Placed: "Order Placed"
 
-  thanks:          "Thank you for your order"
+  thanks: "Thank you for your order"
+  Order_Placed: "pedido realizado"
