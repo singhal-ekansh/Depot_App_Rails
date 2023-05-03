@@ -16,11 +16,8 @@ class Category < ApplicationRecord
     name.blank?
   end
 
-<<<<<<< HEAD
   def isParentPresent?
     self.parent_id
   end
 
-=======
->>>>>>> 4ff8c7e5dd4871f5aca18a6645ab88c8dc3db91e
 end
