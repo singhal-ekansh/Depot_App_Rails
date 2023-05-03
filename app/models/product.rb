@@ -13,15 +13,9 @@ class Product < ApplicationRecord
     self.discount_price = price if discount_price.blank?
   end
 
-  after_create_commit do
-    root_category = Category.find(category_id).parent
-    root_category.increment!(:products_count) if root_category
-  end
+  after_save :product_count_on_save
 
-  after_destroy_commit do
-    root_category = Category.find(category_id).parent
-    root_category.decrement!(:products_count) if root_category
-  end
+  after_destroy :product_count_on_destroy
 
   # callbacks extentions
   before_validation do 
@@ -70,6 +64,27 @@ class Product < ApplicationRecord
 
     def validate_description_length
       errors.add(:description, 'length should be between 5-10') unless description && description.split.size.between?(5,10)
+    end
+
+    def increment_product_count(cat_id)
+      root_category = Category.find(cat_id).parent
+      root_category.increment!(:products_count) if root_category
+    end
+
+    def decrement_product_count(cat_id)
+      root_category = Category.find(cat_id).parent
+      root_category.decrement!(:products_count) if root_category
+    end
+
+    def product_count_on_save 
+      if category_id_previously_was != category_id
+        decrement_product_count(category_id_previously_was) if category_id_previously_was
+        increment_product_count(category_id)
+      end
+    end
+
+    def product_count_on_destroy
+      decrement_product_count(category_id) 
     end
 
 end

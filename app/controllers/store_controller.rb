@@ -12,7 +12,7 @@ class StoreController < ApplicationController
   end
 
   def categories
-    @categories = Category.includes(:sub_categories).where(parent_id: nil).all
+    @categories = Category.includes(:sub_categories).where(parent_id: nil)
   end
     
 end
