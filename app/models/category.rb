@@ -6,18 +6,14 @@ class Category < ApplicationRecord
   has_many :sub_category_products,  through: :sub_categories,  source: :products, dependent: :destroy
 
   validates :name, presence: true
-  validates :name, uniqueness: { scope: :parent_id, message: 'name of root category should be unique' }, allow_blank: true, unless: :isParentPresent?
-  validates :name, uniqueness: { scope: :parent_id, message: 'name of sub categories should be unique for each category' }, allow_blank: true, if: :isParentPresent?
+  validates :name, uniqueness: { scope: :parent_id, message: 'name of root category should be unique' }, allow_blank: true, unless: parent_id
+  validates :name, uniqueness: { scope: :parent_id, message: 'name of sub categories should be unique for each category' }, allow_blank: true, if: parent_id
   validates_with NoChildOfSubCategory
 
   private
 
   def isNamePresent?
     name.blank?
-  end
-
-  def isParentPresent?
-    self.parent_id
   end
 
 end
