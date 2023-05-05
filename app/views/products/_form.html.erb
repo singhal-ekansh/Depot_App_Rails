@@ -44,7 +44,8 @@
 
   <div>
     <%= form.label :category, style: "display: block" %>
-    <%= form.select :category_id, Category.all.pluck(:name, :id), prompt: "Select One" %>
+    <%= collection_select(:product, :category_id, Category.all, :id, :name) %>
+    <%# <%= form.select :category_id, Category.all.pluck(:name, :id), prompt: "Select One" %>
   </div>
 
   <div>

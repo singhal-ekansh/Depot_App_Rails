@@ -6,7 +6,7 @@ class ProductsController < ApplicationController
     @products = Product.all
     respond_to do |format|
       format.html 
-      format.json{render :json => @products.to_json(only: [:title], include: {category: {only: [:name]}}) }
+      format.json{render json: @products.to_json(only: [:title], include: {category: {only: [:name]}}) }
     end
   end
 
