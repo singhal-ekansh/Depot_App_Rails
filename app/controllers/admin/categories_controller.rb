@@ -1,8 +1,5 @@
 module Admin
-  class CategoriesController < ApplicationController
-    include AdminAccess
-    before_action :only_admin_access
-
+  class CategoriesController < Admin::BaseController
     def index
       @categories = Category.all
     end

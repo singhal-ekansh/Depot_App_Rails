@@ -1,5 +1,8 @@
-module AdminAccess
+class Admin::BaseController < ApplicationController
 
+  before_action :only_admin_access
+
+  
   private
   
   def is_admin?

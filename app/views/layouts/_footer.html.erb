@@ -1,0 +1,6 @@
+<% set_hit_count %>
+<%= "hit count = #{session[params[:controller]][params[:action]]}"%>
+<br>
+<%= "x-responded-in #{(Time.now - @elapsed_time) * 1000 } ms" %>
+<br>
+<%= "ip-address #{request.remote_ip}" %>

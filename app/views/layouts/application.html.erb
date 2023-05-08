@@ -25,7 +25,7 @@
           <%= select_tag 'set_locale', 
             options_for_select(LANGUAGES, I18n.locale.to_s),
             onchange: 'this.form.submit()' %>
-          <%= submit_tag 'submit', id: "submit_locale_change" %>
+          <% submit_tag 'submit', id: "submit_locale_change" %>
         <% end %>
       </aside>
       <%= image_tag 'logo.svg', alt: 'The Pragmatic Bookshelf' %>
@@ -61,12 +61,6 @@
         <%= yield %>
       </main>
     </section>
-    <% session[params[:controller]] = Hash.new unless session[params[:controller]] %>
-    <% session[params[:controller]][params[:action]] = 0 unless session[params[:controller]][params[:action]] %>
-    <%= "hit count = #{session[params[:controller]][params[:action]] += 1}"%>
-    <br>
-    <%= "x-responded-in #{(Time.now - @elapsed_time) * 1000 } ms" %>
-    <br>
-    <%= "ip-address #{request.remote_ip}" %>
+    <%= render 'layouts/footer'%>
   </body>
 </html>

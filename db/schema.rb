@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_26_173630) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_08_062731) do
   create_table "action_mailbox_inbound_emails", force: :cascade do |t|
     t.integer "status", default: 0, null: false
     t.string "message_id", null: false
@@ -121,6 +121,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_26_173630) do
     t.index ["category_id"], name: "index_products_on_category_id"
   end
 
+  create_table "ratings", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "product_id"
+    t.integer "rating_value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_ratings_on_product_id"
+    t.index ["user_id"], name: "index_ratings_on_user_id"
+  end
+
   create_table "support_requests", force: :cascade do |t|
     t.string "email"
     t.string "subject"
@@ -137,6 +147,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_26_173630) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "email"
+    t.string "language_pref", default: "english"
     t.string "role", default: "user"
   end
 
@@ -149,5 +160,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_26_173630) do
   add_foreign_key "line_items", "products"
   add_foreign_key "orders", "users"
   add_foreign_key "products", "categories"
+  add_foreign_key "ratings", "products"
+  add_foreign_key "ratings", "users"
   add_foreign_key "support_requests", "orders"
 end

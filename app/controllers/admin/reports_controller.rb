@@ -1,8 +1,5 @@
 module Admin
-  class ReportsController < ApplicationController
-    include AdminAccess
-
-    before_action :only_admin_access
+  class ReportsController < Admin::BaseController
     def index
       p params
       from = params["start_date"] || (Time.now.midnight - 5.day)
