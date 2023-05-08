@@ -25,7 +25,7 @@
           <%= select_tag 'set_locale', 
             options_for_select(LANGUAGES, I18n.locale.to_s),
             onchange: 'this.form.submit()' %>
-          <%= submit_tag 'submit', id: "submit_locale_change" %>
+          <% submit_tag 'submit', id: "submit_locale_change" %>
         <% end %>
       </aside>
       <%= image_tag 'logo.svg', alt: 'The Pragmatic Bookshelf' %>
@@ -61,5 +61,6 @@
         <%= yield %>
       </main>
     </section>
+    <%= render 'layouts/footer'%>
   </body>
 </html>
