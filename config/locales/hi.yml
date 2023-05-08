@@ -1,2 +1,10 @@
 hi:
   Order_Placed: "आपका ऑर्डर दे दिया गया है"
+
+  sessions:
+    create:
+      no_privilage: "आपके पास इस अनुभाग तक पहुँचने का विशेषाधिकार नहीं है"
+
+  errors:
+    messages:
+      blank: "खाली नहीं हो सकता"

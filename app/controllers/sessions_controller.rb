@@ -8,11 +8,13 @@ class SessionsController < ApplicationController
     user = User.find_by(name: params[:name])
     if user&.authenticate(params[:password])
       session[:user_id] = user.id
+      I18n.default_locale = LANGUAGES.to_h[user.language_pref.capitalize].to_sym
       session[:inactivity] = Time.now
       if user.role == 'admin'
         redirect_to admin_reports_url
       else
-        flash[:notice] = "You don't have privilege to access this section"
+        debugger
+        flash[:notice] = I18n.with_locale(LANGUAGES.to_h[user.language_pref.capitalize].to_sym) { t('.no_privilage') }
         redirect_to store_index_url
       end
 

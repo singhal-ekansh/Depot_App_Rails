@@ -9,6 +9,9 @@ en:
         format: "%u%n"
 
   errors:
+    messages:
+      blank: "can not be empty"
+
     template:
       body: "There were problems with the following fields:"
       header:
@@ -60,6 +63,10 @@ en:
   order_mailer:
     received:
       Order_Placed: "Order Placed"
+
+  sessions:
+    create:
+      no_privilage: "You don't have privilege to access this section"
 
   thanks: "Thank you for your order"
   Order_Placed: "pedido realizado"
