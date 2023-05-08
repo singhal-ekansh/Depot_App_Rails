@@ -5,6 +5,7 @@ class Product < ApplicationRecord
   has_many :orders, through: :line_items
   has_many :carts, through: :line_items
   belongs_to :category, counter_cache: true
+  has_many_attached :images
   # before_destroy :ensure_not_referenced_by_any_line_item 
 
   # callbacks extentions
@@ -23,7 +24,7 @@ class Product < ApplicationRecord
     root_category.decrement!(:products_count) if root_category
   end
 
-  validates :title, :description, :image_url, presence: true
+  validates :title, :description, presence: true
   # validates :price, numericality: { greater_than_or_equal_to: 0.01 }
   validates :title, uniqueness: true
   # validates :image_url, allow_blank: true, format: {
@@ -33,7 +34,7 @@ class Product < ApplicationRecord
 
 
 
-  validates :title, :description, :image_url, presence: true
+  validates :title, :description,  presence: true
   validates :title, uniqueness: true
   
   # validation extentions 
@@ -48,10 +49,10 @@ class Product < ApplicationRecord
   }
   validates :price, numericality: { greater_than_or_equal_to: 0.01 }, allow_blank: true
   validate :validate_description_length
-  validates :image_url, url:true
+  # validates :image_url, url:true
   validates_with PriceValidator, unless: -> { price.blank? || discount_price.blank? }
   validates :price, comparison: { greater_than: :discount_price, message: 'must be greater than discount price' }, unless: -> { discount_price.blank? }
-  
+  # validates :category_id, presence: { message: "category must be selected" }
   # query extentions
   
   scope :enabled_products, -> { where(enabled: true) }

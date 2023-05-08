@@ -1,3 +1,17 @@
+<div class="container">
+  
+  <!-- Full-width images with caption text -->
+  <% if product.images %>
+    <%product.images.each do |image| %>
+      <div class="image-sliderfade">
+      <%= image_tag(image) %>
+      </div>      
+    <%end%>
+  <%end%>
+</div>
+<br>
+<%= javascript_pack_tag 'image_slider'%>
+
 <div id="<%= dom_id product %>">
   <p>
     <strong>Title:</strong>
